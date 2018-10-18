@@ -1,0 +1,816 @@
+{$yellow - #F8E9A1;
+$cream yellow - #F5D76E;
+$red - #F76C6C;
+$lightblue - #A8D0E6;
+$blue - #374785;
+$navy - #24305E;
+$mint - #7fffd4;
+$darkMint - #1FFFB4;}
+
+
+
+body{
+    font-family:'Patrick Hand', cursive;
+    color:#24305E;
+    background-color: skyblue;rgb(197, 235, 135);#F8E9A1;white;#A8D0E6;
+}
+ 
+.clr{
+    clear:both;
+}
+
+.phone{
+    width:301.25px;
+    float:left;
+    margin-left:38%;
+    margin-top:40px;
+    padding-top:5px;
+    height:560px;  
+    overflow: show;
+    border-radius: 10px;
+    background-color: #fffaf0;
+    border: 1px solid #2a3439;
+}
+
+.camera{
+    width:5px;
+    height:5px;
+    float:left;
+    background-color:black;
+    margin-left: 50.3125px;
+    border-radius:50%;
+    margin-top:5px;
+    margin-bottom: 0px;
+    border: 5px solid #343434;
+}
+
+.speaker{
+    width:80px;
+    height:8px;
+    float:right;
+    margin-right: 110.625px;
+    margin-top:5px;
+    margin-bottom: 10px;
+    background-color: #2a3439;
+    border-radius:5px;
+}
+
+.topBar{
+    height:20px;
+    width:286.25;
+    margin-bottom:0px;
+    background-color:#7DA9BF;
+    padding-top:0px;
+}
+
+.topBar p{
+    font-size:12px;
+    font-family: "Patrick Hand", sans-serif;
+    color:white;
+    float:right;
+    margin-top:3px;
+    margin-right:4px;
+    margin-bottom:0px;
+    background-color:none;
+    font-weight:bold;
+}
+
+.topBar i{
+    font-size:12px;
+    width:auto;
+    color:white;
+    float:right;
+    margin-right:4px;
+    margin-top:4px;
+    margin-bottom:0px;
+    
+}
+
+.topBar ii{
+    font-size:15px;
+    width:auto;
+    color:white;
+    float:left;
+    margin-left:5px;
+    margin-top:2px;
+    margin-bottom:0px;
+    
+}
+
+.bottomMenu{
+    height:30px;
+    width:286.25;
+    margin:0px;
+    margin:auto;
+    background-color:#c4d8e2;
+    padding-top:0px;
+}
+
+.bottomMenu i{
+    font-size:20px;
+    float:left;
+    color: #2a3439;
+    margin-left:21%;
+    margin-top:5px;
+}
+
+.screen{
+    width:286.25px;
+    margin:auto;
+    height:470px;  
+    overflow: show;
+    position:relative;
+    margin-top:0px;
+    border-radius: 0px;
+    background-color: #A8D0E6;
+}
+
+.startPage{
+    width:auto;
+    padding-top:10%;
+    padding-bottom:0px;
+    margin-top:0px;
+    margin-bottom:0;
+    margin-left:10px;
+    margin-right:10px;
+    background-color:none;
+    text-align:center;
+}
+
+.startPage h2{
+    width:90%;
+    margin:auto;
+    color:#24305E;
+    line-height:1.2em;
+    font-family: 'Kaushan Script';
+    font-size:50px;
+    font-weight:bold;
+    margin-bottom:2px;
+}
+
+.startPage input[type="text"], .startPage input[type="password"]{
+    width: 80%;
+    border:none;
+    border-radius:10px;
+    font-family: "Patrick Hand", cursive;
+    font-family:10px;
+    text-align:center;
+    padding: 2px 0px;
+    color:#24305E;
+    
+}
+
+.signIn input[type="checkbox"]{
+    height:17px;
+    width:17px;
+    border:none;
+    float:left;
+    margin-top:20px;
+    margin-left:25%;
+    color:#24305E;
+    
+}
+
+.signIn p{
+    float:left;
+    font-family: 'Patrick Hand', cursive;
+    font-family:15px;
+    font-weight:none;bold;
+    background-color:none;red;
+    margin-left:2px;
+    padding-top:14px;
+    color:#24305E;
+    
+}
+
+.startPage input[tye="checkbox"]:checked{
+
+}
+
+
+.startPage p{
+    font-family:'Patrick Hand', cursive;
+    font-size:20px;
+    font-weight:none;bold;
+    margin-bottom:0px;
+    margin-top:10px;
+    margin-left:7%;
+    padding:none;
+    color:#24305E;
+    width:86%;
+}
+
+.textField{
+    font-family: 'Patrick Hand', cursive;
+    border-radius:10px;
+    font-size:15px;
+    border:none;
+    padding: 2px 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.startPage button{
+    position: absolute;
+    width:50%;
+    left:25%;
+    bottom:20px;
+    margin-bottom:8px;
+    border:none;
+    background-color: #F76C6C;#7df9ff;#4bc7cf;#43b3ae;#7fffd4;#D8E2C4;
+    font-family: 'Patrick Hand', cursive;
+    font-size:20px;
+    font-weight:none;bold;
+    padding: 3px 10px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.2s linear;
+    color:#24305E;
+    
+}
+.startPage button:hover{
+    background-color: #F8E9A1;#00c5cd;#61FA96;#34A27B;#1FFFB4;#BBDAA9;
+}
+
+.startPage button i{
+    font-size: 15px;
+    
+}
+
+.homePage button[name="message board"]{
+    width: 47%;
+    margin-left:2%;
+    margin-bottom:10px;
+    font-size:15px;
+    font-family: 'Patrick Hand', cursive;
+    text-align:center;
+    border:none;
+    border-radius:15px;
+    background: #F8E9A1; 
+    cursor:pointer;
+    float:left;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding:left:5px;
+    color:#24305E;
+
+}
+
+.homePage button[name="checked messages"]{
+    width: 47%;
+    margin-right:2%;
+    margin-bottom:10px;
+    font-size:15px;
+    font-family: 'Patrick Hand', cursive;
+    text-align:center;
+    border:none;
+    border-radius:15px;
+    background: #F76C6C;#A8D0E6;#A8D0E6;
+    float:right;
+    cursor:pointer;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding:left:5px;
+    color:#24305E;
+}
+
+.homePage p{
+    font-family:'Patrick Hand', cursive;
+    font-size:30px;
+    font-weight:none;
+    line-height: 1.2em;
+    text-align:center;
+    width:80%;
+    margin:auto;
+    margin-top:0px;
+    color:#24305E; 
+}
+
+.homeMenu button{
+    cursor: pointer;
+}
+
+.homeMenu button[name="settings"], .homeMenu button[name="sign_out"]{
+    font-size:30px;
+    height:60px;
+    width:60px;
+    background-color: #F8E9A1;#00c5cd;
+    color: #F76C6C;#4bc7cf;#7fffd4;
+    border:none;
+    border-radius: 50%;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.homeMenu button[name="settings"]{
+    position:absolute;
+    bottom:10px;
+    left:7%
+}
+
+.homeMenu button[name="sign_out"]{
+    position:absolute;
+    bottom:10px;
+    right:7%
+}
+
+#begin{
+    position: absolute;
+    bottom:15px;
+    left:34%;
+    height:90px;
+    width:90px;
+    border-radius:50%;
+    background-color:  #F8E9A1;#00c5cd;
+    border:solid 5px #F76C6C;
+    padding:none;
+    text-align:center;
+    color: #F76C6C;
+    transition:background-color 0.2s ease-in, border-color 0.2s ease-in, color 0.2s ease-in;
+}
+
+#begin i{
+    font-size:50px;
+}
+
+#begin:hover{
+    background-color:#F76C6C;
+    border-color: #F8E9A1;
+    color: #F8E9A1;
+    
+}
+
+#begin i:hover (){
+
+}
+
+
+.homeMenu button[name="announce"]{
+    position: absolute;
+    bottom:10px;
+    left:36%;
+    font-size:50px;
+    height:80px;
+    width:80px;
+    border-radius:50%;
+    background-color:  #F8E9A1;#00c5cd;
+    border:none;
+    color: #F76C6C;#4bc7cf;#7fffd4;
+    padding:none;
+    text-align:center;
+    transition:background-color 0.3s ease, color 0.3s ease;
+}
+
+.homeMenu Button[name="settings"]:hover, .homeMenu button[name="sign_out"]:hover, .homeMenu button[name="announce"]:hover{
+    color: #F8E9A1;  #F76C6C;#00c5cd;#1FFFB4;
+    background-color: #F76C6C; #F8E9A1;#4bc7cf;
+} 
+
+
+
+.topBanner{
+    width:100%; 
+    background-color:none;#95E4D7;#7DFFB5;#A8D0E6;#7df9ff;#4bc7cf;#A8D0E6; 
+    margin-top:0px;
+    margin-bottom: 10px;
+    text-align:center;
+    line-height:1.2em;
+}
+
+.topBanner p{
+    margin-top:0px;
+    margin-bottom:0px;
+    font-family: 'Kaushan Script';
+    font-weight:bold;
+    font-size:20px;
+    border:none;
+    padding-top:15px;
+    padding-bottom:10px;
+    color:#24305E;
+}
+
+
+
+.history button {
+    width:90%;
+    height:65px;
+    font-family: 'Patrick Hand', cursive;
+    margin-top:5px;
+    margin-left:5%;
+    background-color: #F8E9A1;
+    border: none;
+    border-radius: 20px 20px 20px 0px;
+    display:block;
+    color:#24305E;   
+}
+
+.otherOption textarea{
+    width:80%;
+    height:20px;100px;
+    margin-left:10%;
+    margin-bottom: 10px;
+    padding: 2px 10px;
+    border-radius:10px;
+    border:none;
+    font-family: 'Patrick Hand', cursive;
+    font-size:17px;
+    text-align: left;
+}
+
+
+.home{
+    padding: 2px 10px;
+    background-color:#7fffd4;#fadf5b;#fddde6;
+    border:none;
+    border-radius:10px;
+    float:left;
+    margin-top:10px;
+    margin-left: 10%;
+    font-size:15px;
+    font-family: 'Patrick Hand', cursive;
+    font-weight:none;bold;
+    transition: background-color 0.2s linear;
+    cursor:pointer;
+}
+
+.backButton{
+    position: absolute;
+    left:10%;
+    bottom: 10px;
+    padding: 2px 10px;
+    background-color:#A8D0E6;#7fffd4;#fadf5b;#fddde6;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    
+}
+
+.homeButton{
+    position: absolute;
+    left:37%;
+    bottom: 10px;
+    border:none;
+    background-color:#A8D0E6;#7fffd4;#fadf5b;#fddde6;
+    border-radius:50%;
+    cursor:pointer;
+    transition: border 0.3s ease;
+}
+
+.submitButton{
+    position: absolute;
+    right:14%;
+    bottom:10px;
+    padding: 2px 10px;
+    width:60px;
+    height:60px;
+    background-color:#A8D0E6;#7fffd4;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.submitButton_mail{
+    position: absolute;
+    right:14%;
+    bottom:10px;
+    padding: 2px 10px;
+    width:60px;
+    height:60px;
+    background-color:#A8D0E6;#7fffd4;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+
+
+
+
+.sendButton{
+    position: absolute;
+    right:20%;
+    bottom:10px;
+    padding: 2px 10px;
+    width:60px;
+    height:60px;
+    background-color:#A8D0E6;#7fffd4;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.cancelButton{
+    position: absolute;
+    left:20%;
+    bottom:10px;
+    padding: 2px 10px;
+    width:60px;
+    height:60px;
+    background-color:#A8D0E6;#7fffd4;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.endPage {
+    margin-left:12.5%;
+    margin-top:20%;
+    width: 75%;
+    text-align:center;
+    font-size:20px;
+    font-family:'Patrick Hand', cursive;
+    line-height:1.2em;
+
+}
+
+.backButton i:hover, .submitButton i:hover,.submitButton_mail i:hover, .homeButton i:hover, .cancelButton i:hover, .sendButton i:hover{
+    color:  #F8E9A1;#1FFFB4;
+}
+
+.homeButton i:hover{
+    border-color: #F8E9A1;
+}
+
+.submitButton_mail i:hover{
+    border-color: #F8E9A1;
+}
+
+
+.backButton i{
+    font-size: 50px;
+    color: #F76C6C;
+    border-radius:50%;
+    transition: color 0.2s linear;
+}
+
+.homeButton i{
+    font-size: 30px;
+    color: #F76C6C;
+    height:60px;
+    width:60px;
+    padding-top:9px;
+    border-radius:50%;
+    border: 5px solid  #F76C6C;
+    transition: color 0.3s ease, border 0.3s ease;
+}
+
+.submitButton i{
+    font-size: 50px;
+    color: #F76C6C;
+    border-radius:50%;
+    transition: color 0.2s linear;
+}
+
+.submitButton_mail i{
+    font-size: 25px;
+    color: #F76C6C;
+    height:50px;
+    width:50px;
+    padding-top:7px;
+    border-radius:50%;
+    border: 5px solid  #F76C6C;
+    transition: color 0.3s ease, border 0.3s ease;
+}
+
+.sendButton i{
+    font-size: 50px;
+    color: #F76C6C;
+    border-radius:50%;
+    transition: color 0.2s linear;
+}
+
+.cancelButton i{
+    font-size: 50px;
+    color: #F76C6C;
+    border-radius:50%;
+    transition: color 0.2s linear;
+}
+
+.question p{
+    font-family: 'Patrick Hand', cursive;
+    font-size:16px;
+    text-align:center;
+    width:70%;
+    margin-left:15%;
+    background-color:none;#D8E2C4;
+    border-radius:10px;
+    margin-top:5px;
+    margin-bottom:10px;
+    color:#24305E;
+
+}
+
+.aquestion p{
+    font-family: 'Patrick Hand', cursive;
+    font-size:20px;
+    text-align:center;
+    background-color:none;#D8E2C4;
+    border-radius:10px;
+    margin-top:10px;
+    margin-bottom:10px;
+    color:#24305E;
+
+}
+
+
+.question h2 {
+    font-family: 'Patrick Hand', cursive;
+    font-size:35px;
+    text-align:center;
+    background-color:none;#D8E2C4;
+    border-radius:10px;
+    margin-top:30px;
+    margin-bottom:30px;
+    margin-left:10px;
+    margin-right:10px;
+    color:#24305E;
+ }
+
+.question h3 {
+    width:86%;
+    margin-left:7%;
+    font-family: "Patrick Hand", cursive;
+    font-size:23px;
+    text-align:center;
+    font-weight:none;bold;
+    background-color: none;
+    color:black; #F8E9A1;
+    margin-bottom:10px;
+    margin-top:0px;
+    line-height:1.2em;
+    color:#24305E;
+    
+}
+
+.question h4 {
+    width:80%;
+    margin-left:10%;
+    font-family: "Patrick Hand", cursive;
+    font-size:15px;
+    text-align:center;
+    font-weight:none;
+    background-color: none;
+    margin-bottom:10px;
+    line-height:1.2em;
+    color:#24305E;
+    
+}
+
+.question a {
+    text-decoration: none;
+    width:80%;
+    margin-left:22%;
+    font-family: "Patrick Hand", cursive;
+    font-size:17px;
+    padding: 2px 5px;
+    text-align:right;
+    font-weight:none;
+    background-color: #7fffd4;
+    margin-bottom:10px;
+    border-radius:10px;
+    line-height:1.2em;
+}
+
+.question button{
+    margin-bottom:10px;
+    margin-left:10%;
+    width: 80%;
+    border:none;
+    background-color:#F8E9A1;
+    font-family: 'Patrick Hand', cursive;'Patrick Hand', cursive;
+    font-size:18px;
+    font-weight:none;
+    padding: 2px 10px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.2s linear;
+    color:#24305E;
+}
+
+.question button:hover{
+    background-color: #F76C6C;#F8E9A1;#BBDAA9;
+}
+
+.question textarea{
+    width:80%;
+    height:50%;100px;
+    margin-left:10%;
+    margin-bottom: 10px;
+    padding: 2px 10px;
+    border-radius:15px;
+    border:none;
+    font-family: 'Patrick Hand', cursive;
+    font-size:20px;
+    text-align: left;
+    
+}
+
+
+.question select{
+    width:80%;
+    margin-left: 10%;
+    margin-top:0px;
+    border-radius:10px;
+    padding: 5px 2px;
+    font-size:12px;
+    text-align:center;
+    border:none;
+    cursor:pointer;
+}
+
+.question select option{
+    width:80%;
+    margin-left:10%;
+    font-family: 'Patrick Hand', cursive;
+    font-size:12px;
+    text-align:center;
+    padding: 5px 2px;
+    border-radius:10px;
+    background-color:none;
+    cursor:pointer;
+
+}
+
+.question input[type="text"]{
+    background-color:none;
+    border:none;
+    width: 80%;
+    margin-left:10%;
+    border-radius:10px;
+    padding: 5px 2px;
+    text-align:center;
+}
+
+#MateName {
+    width:65%;
+    height:30px;
+    float:left;
+    margin-left:10%;
+}
+
+#subMateName{
+    width:10%;
+    height:30px;
+    float:left;
+    margin-left:0px;
+    background-color:#A8D0E6;
+    padding-bottom:2px;
+}
+
+#subMateName i{
+    font-size:30px;
+    float:left;
+    color: #F76C6C;
+    transition:color 0.3s ease;
+    padding:0px;
+    margin:0px;
+}
+
+#subMateName i:hover{
+    color: #F8E9A1;
+}
+
+#other_option textarea{
+    height:35px;
+    margin-left:10%;
+    margin-top:5px;
+    padding: 2px 10px;
+}
+
+#begin:hover 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.email{
+    width:500px;
+    height:500px;
+    float:right;
+    margin-right:10%;
+    margin-top: 40px;
+    background-color:aliceblue;
+    border-radius: 10px;
+    border: 5px grey solid;
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+

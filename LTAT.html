@@ -1,0 +1,1681 @@
+<html>
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>Let's Talk About This</title>
+        <link rel="stylesheet" type="text/css" href="cohesionApp.css">
+        <link href="https://fonts.googleapis.com/css?family=Architects+Daughter|Neucha|Patrick+Hand" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <!-- JS script to hide/show elements of the questionnaire -->
+        <script type="text/javascript" language="JavaScript">
+            var emailList = ['13.Amritpal.singh@gmail.com', 'official.imperial.igem@gmail.com', 't.ouldridge@imperial.ac.uk']
+            var recEmail = ["placeHolderEmial"]
+            var newLoc = [];
+            var oldLoc = [];
+            var userName = [];
+            
+            function hide(id){
+                var element = document.getElementById(id);
+                element.style.display = "none";
+            }
+            function show(id){
+                var element = document.getElementById(id);
+                element.style.display = "block";
+            }
+            function switchQ(currentQ, nextQ){
+                hide(currentQ);
+                show(nextQ);
+            }
+
+            function userId(id){
+                userName.push(document.getElementById(id).value)
+                console.log(userName)
+            }
+
+            function anonId(id){
+                userName.push(document.getElementById(id).getAttribute("statement"));
+                console.log(userName)
+            }
+
+            function removeUser(){
+                while (userName.length > 0){
+                    console.log(userName);
+                    userName.pop();
+                    console.log(userName)
+                }
+            }
+
+            function funcRecEmail(i){
+                while (recEmail.length > 0){
+                    recEmail.pop();
+                }
+                recEmail.push(emailList[i]);
+                console.log(recEmail);
+            }
+
+            var answers = []
+
+            function record(id){
+                console.log(answers);
+                var AnswerIn = document.getElementById(id).getAttribute("statement");
+                answers.push(AnswerIn);
+                console.log(answers);
+                }
+
+            function undo(){
+                console.log(answers)
+                answers.pop()
+                console.log(answers)
+            }
+
+            function save(id, tag){
+                var input = document.getElementById(id).value;
+                var statement = document.getElementById(tag).getAttribute("statement");
+                answers.push(statement + input);
+                console.log(answers)
+            }
+              
+            function nextLoc(id){
+                var elementName = document.getElementById(id).getAttribute('name');
+                newLoc.push(elementName)
+                console.log(newLoc);
+            }
+
+            function currentLoc(id){
+                var elementName = document.getElementById(id).getAttribute('name');
+                oldLoc.push(elementName);
+                console.log(oldLoc);
+            }
+
+            function goBack(){
+                curr = newLoc.slice(-1)[0];
+                prev = oldLoc.slice(-1)[0];
+                console.log(curr);
+                console.log(prev);
+                switchQ(curr, prev);
+                newLoc.pop();
+                oldLoc.pop();
+                console.log(newLoc);
+                console.log(oldLoc);
+            }
+            
+            function toggle(id){
+                var element = document.getElementById(id);
+                if (element.style.display == "none"){
+                    element.style.display = "block"
+                }
+                else{ element.style.display = "none"}
+            }
+
+            function add(choice, choiceDetail){
+                var elementChoice = document.getElementById(choice).getAttribute("statement");
+                var elementDetail = document.getElementById(choiceDetail).value;
+                newLastValue = elementChoice + elementDetail;
+                answers.push(newLastValue);
+            }
+
+            function erase(){
+                location.reload()
+            }
+
+            var feels = []
+            var idList = []
+
+            function togSelect(id){
+                var element = document.getElementById(id);
+                var elementStatement = element.getAttribute("statement");
+                console.log(element);
+                console.log(elementStatement);
+                if  (feels.indexOf(elementStatement) >= 0){
+                    console.log('feels detected');
+                    feels.splice(feels.indexOf(elementStatement), 1);
+                    idList.splice(idList.indexOf(id), 1);
+                    element.style.backgroundColor = '#F8E9A1';
+                }
+                else {
+                    console.log('feels not detected');
+                    feels.push(elementStatement);
+                    idList.push(id);
+                    element.style.backgroundColor = '#F76C6C';
+                }
+                console.log(feels);
+                console.log(idList);
+            }
+            
+            function collectFeels(id, other){
+                var statementStart = document.getElementById(id).getAttribute("statement");
+                var statementWhole = statementStart;
+                var i;
+                for (i = 0; i < feels.length; i++){
+                    statementWhole = statementWhole + feels[i]; 
+                    document.getElementById(idList[i]).style.backgroundColor = '#F8E9A1' ;
+                } 
+                otherAnswer = document.getElementById(other).value;
+                if (otherAnswer != null){
+                    console.log(otherAnswer);
+                    statementWhole = statementWhole + " " + otherAnswer + ";"; 
+                }
+                answers.push(statementWhole);
+                while (feels.length > 0){
+                    feels.pop();
+                    idList.pop();
+                }
+                console.log(answers);
+            }
+
+            function remove(){
+                var i;
+                for (i = 0; i < feels.length; i++){ 
+                    document.getElementById(idList[i]).style.backgroundColor = '#F8E9A1' ;
+                }
+                while (feels.length > 0){
+                    feels.pop();
+                    idList.pop();
+                }
+            }
+
+            function eraseFeels(id){
+                collectFeels(id);
+            }
+
+            function endMessage(){
+                if (answers[0] == document.getElementById("HR").getAttribute("statement")){
+                    document.getElementById("end_page").innerHTML = "Thank you for using LTAT to bring up your issue, press the envelope to submit your issue to HR and they will shortly get in contact to help facilitate resolving your problem."
+                }
+                else if (answers[0] == document.getElementById("Everyone").getAttribute("statement")){
+                    document.getElementById("end_page").innerHTML = "Thank you for using LTAT to bring up your issue, press the envelope to send a notification to the team, as well as HR who will get in contact to help facilitate resolving your problem"
+                }
+                else if (answers[0] == document.getElementById("Honchos").getAttribute("statement")){
+                    document.getElementById("end_page").innerHTML = "Thank you for using LTAT to bring up your issue, press the envelope to submit your issue to the principal investigator and they should contact you shortly to help facilitate resolving your problem"
+                }
+            }
+
+
+            function mailData(){
+                if (userName[0] == "Anonymous"){
+                    var subject1_2 = "Anonymous -";
+                }
+                
+                else{
+                    var subject1_2 = userName + " - ";
+                }
+                
+                console.log(answers)
+
+                if (answers[1] == "The issue that is being brought up is personal"){
+                    console.log('something1');
+                    var subject2_2 = [" Personal Problem"];
+                    console.log(subject2_2);
+                }
+
+                else if (answers[1] == "The issue that is being brought up is about the group"){
+                    console.log('something2');
+                    var subject2_2 = [" Group Problem"];
+                    console.log(subject2_2);
+                } 
+
+                var subject_line = subject1_2 + subject2_2;
+                //console.log(recEmail);
+                //console.log(subject_line);
+                //console.log(answers);
+                
+                mailSummary = [recEmail[0], subject_line, answers];
+                
+                console.log(mailSummary);
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "mailer.php?mailSum=" + recEmail[0] + "~" + subject_line + "*" + answers, true);
+                xhttp.send();
+
+                var xhttp_recEmail = new XMLHttpRequest();
+                xhttp_recEmail.open("GET", "mailer.php?recEmail=" + recEmail[0], true);
+                xhttp_recEmail.send();
+
+                var xhttp_subject = new XMLHttpRequest();
+                xhttp_subject.open("GET", "mailer.php?subject=" + subject_line, true);
+                xhttp_subject.send();
+
+                var xhttp_data = new XMLHttpRequest();
+                xhttp_data.open("GET", "mailer.php?data=" + answers, true);
+                xhttp_data.send();
+
+
+
+                erase()
+                }
+
+
+        </script>
+
+    </head>
+    
+    <body>
+
+        <?php echo "hello world" ?>
+
+        <div class="phone">
+
+            <div class="camera"></div>
+            <div class="speaker"></div>
+            <div class="clr"></div>
+
+            <div class="screen" id="form1" method="post" kkkaction="https://script.google.com/macros/s/AKfycbz6JrmlnwFPMT6q3mhOXprhWS-UCZSLow4Fp1ANww/exec">
+                
+                <div class="topBar">
+                    <p>11:22</p>
+                    <i style="font-size:15px" class="fas fa-battery-half"></i>
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-globe"></i>
+                    <ii class="fab fa-facebook-messenger"></ii>
+                    <ii class="fab fa-whatsapp"></ii>
+                </div>
+                <!-- Start of App -->
+
+                <div id="home_page" name="home_page" title ="" class="startPage">
+                    <h2>Let's Talk About This</h2>
+                    <!--
+                    <p>Team name</p>
+                    <input type="text" placeholder="Team Name">
+                    <p>User name</p>
+                    <input type="text" placeholder="User Name">
+                    <p>Password</p>
+                    <b><input type="password" placeholder="***********"></b><br>
+                    
+                    <div class="signIn">
+                        <input type="checkbox" checked="checked" value="stay in" name="Ask stay in"></radio>
+                        <p>Stay signed in</p>
+                    </div>
+                    
+                    <button name="sign_in" onclick="switchQ('start_page', 'home_page')">Sign in</button>
+                    -->
+                    <p style="margin-top:15px;">Welcome to LTAT, your aid for raising difficult but important conversations</p>
+                    <p>Press the button below to begin</p> 
+                  
+                    <div>
+                        <button id="begin" name="begin" onclick="switchQ('home_page', 'user_name')"><i class="far fa-comment-alt"></i></button> <!--<i class="fas fa-bolt"></i>-->
+                    </div>
+
+                </div>
+                
+                <div id="XXXhome_page" name="home_page" class="homePage" style="display:none;">
+                    
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p> 
+                    </div>
+                    
+                    <div>
+                        <button class="announcement" onclick="" name="message board">Announcements</button>
+                        <button class="history" onclick="switchQ('home_page','home_page2')" name="checked messages">History</button>
+                    </div>
+                    
+                    <p style="margin-top:100px;" >Hi!</p>
+                    <p>No announcements have been made today, maybe check back later</p>
+
+                    <div class="homeMenu">
+                        <button name="settings" onclick="switchQ('home_page', '')"><i class="fas fa-user"></i></button>
+                        <button name="announce" onclick="switchQ('home_page', 'announce_who')"><i class="fas fa-bolt"></i></button>
+                        <button name="sign_out" onclick="switchQ('home_page', 'start_page')"><i class="fas fa-door-open"></i></button>
+                    </div>
+                </div>
+
+                <div id="home_page2" name="home_page2" class="homePage" style="display:none">
+                    
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div>
+                        <button onclick="switchQ('home_page2','home_page')" name="message board" style="background-color:#F76C6C">Announcements</button>
+                        <button onclick="switchQ('','')" name="checked messages" style="background-color:#F8E9A1;">History</button>
+                    </div>
+                    
+                    <div class="history">
+                        <button>Message</button>
+                        <button>Message</button>
+                        <button>Message</button>
+                        <button>Message</button>
+                    </div>
+                    
+                    <div class="homeMenu">
+                        <button name="settings" onclick="switchQ('home_page2', 'start_page')"><i class="fas fa-user"></i></button>
+                        <button name="sign_out" onclick="switchQ('home_page2', 'start_page')"><i class="fas fa-door-open"></i></button>
+                    </div>
+                </div>
+    
+                <div id="user_name" name ="user_name" style="display:none" >
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+
+                    <div class="question">
+                        <h3>What's your name?</h3>
+                        <textarea style="height:35px;margin-bottom:15px;margin-top:10px;" id="UserName" placeholder="Your name..."></textarea><br>
+                        <button id="Anon" onclick="switchQ('user_name','announce_who'); currentLoc('user_name'); nextLoc('announce_who');anonId('Anon')" statement="Anonymous">Stay Anonymous</button>
+                    </div>
+                    
+                    <button class="backButton" onclick="switchQ('user_name','home_page');undo()"><i class="far fa-arrow-alt-circle-left"></i></button>
+                    <button class="homeButton" id="Home" onclick="switchQ('user_name','home_page');erase();"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="subUserName" onclick="switchQ('user_name','announce_who'); currentLoc('user_name'); nextLoc('announce_who');userId('UserName')"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+
+                </div>
+
+
+                
+                <div id="announce_who" name="announce_who" style="display:none" >
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+
+                    <div class="question">
+                        <h3>Who do you want to involve?</h3>
+                        <button id="HR" onclick="record('HR');switchQ('announce_who','q1'); currentLoc('announce_who'), nextLoc('q1'); funcRecEmail(0)" statement="Wants to involve human resources only" value="Human Resources Only" name="Human Resources Only">Human Resources Only</button>
+                        <button id="Everyone" onclick="record('Everyone');switchQ('announce_who','q1');currentLoc('announce_who'), nextLoc('q1'); funcRecEmail(1)" statement="Wants to involve everyone" value="Everyone" name="Everyone">Everyone</button>
+                        <button id="Honchos" onclick="record('Honchos');switchQ('announce_who','q1');currentLoc('announce_who'), nextLoc('q1'); funcRecEmail(2)" statement="Wants to involve the PI" value="Head Honchos" name="Head Honchos">Principal Investigator</button>
+                    </div>
+                    <button class="backButton" id="back_announce_who" onclick="goBack();undo();removeUser();"><i class="far fa-arrow-alt-circle-left"></i></button>
+                    <button class="homeButton" id="Home" onclick="switchQ('announce_who','home_page');erase();"><i class="fas fa-home"></i></button>
+
+
+                </div>
+
+                <!--Start the quiz-->
+
+                <!--Question 1 is about the type of problem the user is facing-->
+                <div id="q1" name="q1" title="Question 1" style="display: none;">
+                   
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+
+                    <div class="question">
+                        <h3>What kind of issue would this be?</h3>
+                        <button style="margin-bottom:0px;" id="personal" type="button" onclick="switchQ('q1', 'q2');record('personal');currentLoc('q1');nextLoc('q2')" name="PROB_TYPE" statement="The issue that is being brought up is personal" value="Personal">Personal</button><br>
+                        <p>This can be about your personal life, your health or be work related</p>    
+                        <button style="margin-bottom:0px;" id="group" type="button" onclick="switchQ('q1', 'q9');record('group');currentLoc('q1');nextLoc('q9')" name="PROB_TYPE" statement="The issue that is being brought up is about the group" value="Group">Group</button><br>
+                        <p>This would be about anything related to other members of the team</p>    
+                    </div>
+
+                   <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button>
+                   <button class="homeButton" id="Home" onclick="switchQ('q1','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <!-- Question 2 is about finding out more about the issue type addressed in question 1 -->
+
+                <!--If Personal selected, q2 is about trying to understand what kind of personal issue is being faced-->
+                <div id="q2" name="q2" title="" style="display:none;">
+
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+
+                    <div class="question">
+                        <h3>Which of the below category does your problem fall into?</h3>
+                        <button id="family" type="button" onclick="switchQ('q2','q3');record('family');currentLoc('q2');nextLoc('q3')" name="PROB_TYPE" statement="The personal problem is family/friend related" value="Family/friend related">Family/Friend related</button><br>
+                        <button id="health" type="button" onclick="switchQ('q2','q6' );record('health');currentLoc('q2');nextLoc('q6')" name="PROB_TYPE" statement="The personal problem is health related" value="Health related">Health related</button><br>
+                        <button id="assignment" type="button" onclick="switchQ('q2','q22' );record('assignment');currentLoc('q2');nextLoc('q22')" name="PROB_TYPE" statement="The personal problem is related to the work assigned to the user" value="Assignement">Assignment related</button><br>
+                    
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q2','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <!--If group selected, q3 is about trying to understand what kind of group issue is being faced-->
+                <div id="q3" name="q3" title="Question 3" style="display:none;">
+
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+
+                    <div class="question">
+                        <h3>Would you be comfortable giving more details?</h3>
+                        <button id="confDetY" type="button" onclick="switchQ('q3', 'q3y');record('confDetY');currentLoc('q3');nextLoc('q3y');" statement="The user is comfortable giving details" value="Yes">Yes</button><br>
+                        <button id="confDetN" type="button" onclick="switchQ('q3', 'q4');record('confDetY');currentLoc('q3');nextLoc('q4');" statement="The user is not confortable giving details of problem" value="No">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q3','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q3y" name="q3y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Please give more details of your problem bellow:</h3>
+                        <textarea id="probDet" placeholder="Enter your problem..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q3y','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="subproDet" onclick="save('probDet','subproDet');switchQ('q3y','q4');nextLoc('q4');currentLoc('q3y')" statement="Details of problem: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+
+                <div id="q4" name="q4" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Would you like help from the team?</h3>                                                                                                                                                                           </h3>
+                        <button id="teamHelpY" type="button" onclick="switchQ('q4', 'q4y');record('teamHelpY');currentLoc('q4');nextLoc('q4y');" statement="The user wants the team to help" value="Yes">Yes</button><br>
+                        <button id="teamHelpN" type="button" onclick="switchQ('q4', 'q5');record('teamHelpN');currentLoc('q4');nextLoc('q5');" statement="The user does not want the team to help" value="No">No</button><br>
+                        <button id="q4Confused" type="button" onclick="switchQ('q4', 'q5');record('q4Confused');currentLoc('q4');nextLoc('q5');" statement="The user doesn't know if they want the team's help" value="Unsure">I am not sure</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q4','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q4y" name="q4y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>How do you suggest the team could help you?</h3>
+                        <textarea id="suggHowTeamHelp" style="height:50%;" placeholder="Suggestion how the team can help..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q4y','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="subsuggHowTeamHelp" onclick="save('suggHowTeamHelp','subsuggHowTeamHelp');switchQ('q4y','q5');nextLoc('q5');currentLoc('q4y')" statement="Suggestion on how team can help: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+
+
+
+                <div id="q5" name="q5" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Would you like to talk to someone in person about the issue?</h3>
+                        <button id="talkY" type="button" onclick="switchQ('q5', 'q5y');record('talkY');currentLoc('q5');nextLoc('q5y')" statement="The user would like to talk to someone in person" name="" value="">Yes</button><br>
+                        <button id="talkN" type="button" onclick="switchQ('q5', 'q6');record('talkN');currentLoc('q5');nextLoc('q6')" statement="The user doesn't feel like talking to someone in person" name="" value="">No</button><br>
+                        <button id="q5Confused" type="button" onclick="switchQ('q5', 'q6');record('q5Confused');currentLoc('q5');nextLoc('q6')" statement="the user is unsure of they want to speak to someone in person" name="" value="">I am not sure</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q5','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+            
+                <div id="q5y" name="q5y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Who would you like to talk to?</h3>
+                        <div class="options">
+                            <button id="talkToHR" onclick="switchQ('q5y', 'q6');record('talkToHR');nextLoc('q6');currentLoc('q5y')" statement="User would like to speak to HR" >The HR person</buton><br>
+                            <button id="talkToMate" onclick="toggle('sub_option');" statement="User would like to speak to their team mate ">A team member</button><br>
+                            <div id="sub_option" class="subOption" style="display:none">
+                                <textarea style="height:35px;" id="MateName" placeholder="Team mate's name"></textarea>
+                                <button id="subMateName" onclick="switchQ('q5y', 'q6');add('talkToMate','MateName');nextLoc('q6');currentLoc('q5y')"><i class="far fa-arrow-alt-circle-right"></i></button>
+                            </div>
+                            <button id="talkToSup" onclick="switchQ('q5y', 'q6');record('talkToSup');nextLoc('q6');currentLoc('q5y')" statement="The user would like to speak to the supervisor" >A supervisor</button><br>
+                            <button id="talkToTeam" onclick="switchQ('q5y', 'q6');record('talkToTeam');nextLoc('q6');currentLoc('q5y')" statment="The user would like to speak to the whole team">The whole team</button><br>
+                            <button id="talkToCoun" onclick="switchQ('q5y', 'q6');record('talkToCoun');nextLoc('q6');currentLoc('q5y')" statement="The user would like to speak to a counsellor/GP">A counsellor/GP</button><br>
+                        </div>
+                        </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q5y','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+                
+                <div id="q6" name="q6" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Has the issue affected your mental health?</h3>
+                        <button id="mentalHealthY" type="button" onclick="switchQ('q6', 'q6y');record('mentalHealthY');currentLoc('q6');nextLoc('q6y')" statement="The user believes their mental health is affected" name="" value="">Yes</button><br>
+                        <button id="mentalHealthN" type="button" onclick="switchQ('q6', 'q7');record('mentalHealthN');currentLoc('q6');nextLoc('q7')" statement="The user doesn't believe that their mental health is affected" name="" value="">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q6','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q6y" name="q6y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div id="options1" class="question">
+                        <h3>How has the problem made you feel?</h3>
+                        
+                        <div >
+                            <button id="anxious" onclick="togSelect('anxious')" statement=" Anxious;">Anxious</buton><br>
+                            <button id="stressed" onclick="togSelect('stressed')" statement=" Stressed;" >Stressed</button><br>
+                            <button id="depressed" onclick="togSelect('depressed')" statement=" Depressed;">Depressed</button><br>
+                            <button id="scared" onclick="togSelect('scared')" statement=" Scared;" >Scared</button><br>
+                            <button id="frustrated" onclick="togSelect('frustrated')" statement=" Frustrated;" >Frustrated</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption2" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitFeel" onclick="collectFeels('submitFeel', 'otherOption2');switchQ('q6y','q7');nextLoc('q7');currentLoc('q6y')" statement="The user feels:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo();remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q6y','home_page');erase();eraseFeels('submitFeel')"><i class="fas fa-home"></i></button>
+                
+                </div>
+                
+                <div id="q7" name="q7" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Has the issue affected your physical health?</h3>
+                        <button id="physHealthY" type="button" onclick="switchQ('q7', 'q7y');record('physHealthY');currentLoc('q7');nextLoc('q8y')" statement="The user believes their physical health is affected" name="" value="">Yes</button><br>
+                        <button id="physHealthN" type="button" onclick="switchQ('q7', 'q8');record('physHealthN');currentLoc('q7');nextLoc('q8')" statement="The user doesn't believe that their physical health is affected" name="" value="">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q7','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+                
+                <div id="q7y" name="q7y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div id="togOptions" class="question">
+                        <h3>How has your problem affected you physically?</h3>
+                        <div>
+                            <button id="nauseous" onclick="togSelect('nauseous')" statement=" Nauseous;">Nauseous</buton><br>
+                            <button id="tiredPhy" onclick="togSelect('tiredPhy')" statement=" Tired;" > Tired</button><br>
+                            <button id="lightHead" onclick="togSelect('lightHead')" statement=" Light headed;">Light Headed</button><br>
+                            <button id="appetite" onclick="togSelect('appetite')" statement=" They've lost appetite;" >Lose Appetite</button><br>
+                            <button id="insomnia" onclick="togSelect('insomnia')" statement=" Insomnia;" >Insomnia</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption2" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitFeel" onclick="collectFeels('submitFeel', 'togOptions');switchQ('q7y','q8');nextLoc('q8');currentLoc('q7y')" statement="The user feels:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo();remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q7y','home_page');erase()"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q8" name="q8" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Would you like to take some time off?</h3>
+                        <button id="noBreak" type="button" onclick="switchQ('q8', 'q8.1');record('noBreak');currentLoc('q8');nextLoc('q8.1');endMessage()" statement="The user doesn't want to take time off" name="" value="">No</button><br>
+                        <button id="breakUnsure" type="button" onclick="switchQ('q8', 'q8.1');record('breakUnsure');currentLoc('q8');nextLoc('q8.1');endMessage()" statement="The user is unsure if they want a break" name="" value="">I don't know</button><br>
+                        <button id="aday" type="button" onclick="switchQ('q8', 'q8.1');record('aday');currentLoc('q8');nextLoc('q8.1');endMessage()" statement="The user would like to take a day off" name="" value="">A day</button><br>
+                        <button id="days" type="button" onclick="switchQ('q8', 'q8.1');record('days');currentLoc('q8');nextLoc('q8.1');endMessage()" statement="The user would like to take a couple of days off" name="" value="">A couple of days</button><br>
+                        <button id="week" type="button" onclick="switchQ('q8', 'q8.1');record('week');currentLoc('q8');nextLoc('q8.1');endMessage()" statement="The user would like to take a week off" name="" value="">A week</button><br>
+                        <button id="leaveProj" type="button" onclick="switchQ('q8', 'q8.1');record('leaveProj');currentLoc('q8');nextLoc('q8.1');endMessage()" statement="The user feels they want to leave the team" name="" value="">I want to leave</button><b></b>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q8','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q8.1" name="q8.1" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Would you like the mediator to pass a message to the team?</h3>
+                        <button id="passMessY" type="button" onclick="switchQ('q8.1', 'q8.1y');record('passMessY');currentLoc('q8.1');nextLoc('q8.1y')" statement="The user would like to give a message to the group." name="" value="">Yes</button><br>
+                        <button id="passMessN" type="button" onclick="switchQ('q8.1', 'end_mess');record('passMessN');currentLoc('q8.1');nextLoc('end_mess')" statement="The user doesn't have a message for the group." name="" value="">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q8.1','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+                
+                <div id="q8.1y" name="q8.1y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What would you like to say?</h3>
+                        <textarea style="height:50%" id="finMess" placeholder="Your message to the team..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q8.1y','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="submitFinMess" onclick="save('finMess', 'submitFinMess');switchQ('q8.1y','end_mess');nextLoc('end_mess');currentLoc('q8.1y')" statement="User's message to the team: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+
+                
+
+                    
+                <div id="end_mess" name="end_mess" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+
+                    <p id="end_page" class="endPage"></p>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" type="button" onclick="switchQ('end_mess','home_page'); erase() "><i class="fas fa-home"></i></button><br>
+                    <button class="submitButton_mail" id="send" onclick="switchQ('end_mess','home_page');mailData()"><i class="far fa-envelope"></i></button>
+
+                </div>
+
+                <div id="q9" name="q9" title="Question 9" style="display: none;">
+                   
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+
+                    <div class="question">
+                        <h3>The issue is between/with...</h3>
+                        <button id="user_group" type="button" onclick="switchQ('q9', 'q10');record('user_group');currentLoc('q9');nextLoc('q10')" name="PROB_TYPE" statement="The user has an issue with the group" value="wGroup">You and the group</button><br>
+                        <button id="user_member" type="button" onclick="switchQ('q9', 'q13');record('user_member');currentLoc('q9');nextLoc('q13')" name="PROB_TYPE" statement="The user has an issue with a specific memeber" value="wMember">You and a group member</button><br>
+                        <button id="member_memeber" type="button" onclick="switchQ('q9', 'q14');record('member_member');currentLoc('q9');nextLoc('q14')" name="PROB_TYPE" statement="The user believes that there ar eissues between other team members" value="wOthMembers">Other members of the group</button><br>
+                        <button id="groupGen" type="button" onclick="switchQ('q9', 'q19');record('groupGen');currentLoc('q9');nextLoc('q19')" name="PROB_TYPE" statement="The user has an issue with the group in general" value="wGroupGen">The group in general</button><br>
+                    </div>
+
+                   <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button>
+                   <button class="homeButton" id="Home" onclick="switchQ('q9','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q10" name="q10" title="Question 10" style="display: none;">
+                   
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+
+                    <div class="question">
+                        <h3>Do you feel mistreated by the group?</h3>
+                        <button id="mistreatY" type="button" onclick="switchQ('q10', 'q10y');record('mistreatY');currentLoc('q10');nextLoc('q10y')" name="PROB_TYPE" statement="The user feels mistreated by the group" value="mistreatY">Yes</button><br>
+                        <button id="mistreatN" type="button" onclick="switchQ('q10', 'q11');record('mistreatN');currentLoc('q10');nextLoc('q11')" name="PROB_TYPE" statement="The user feels the issue is other than mistreatment by the group" value="mistreatN">No</button><br>
+                    </div>
+
+                   <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button>
+                   <button class="homeButton" id="Home" onclick="switchQ('q10','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q10y" name="q10y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>How do you feel the group has mistreated you?</h3>
+                        <div>
+                            <button id="ignored" onclick="togSelect('ignored')" statement=" Ignoring them;">Ignoring me</buton><br>
+                            <button id="bully" onclick="togSelect('bully')" statement=" Bullying them;" >Bullying me</button><br>
+                            <button id="boss" onclick="togSelect('boss')" statement=" Bossing them;">Bossing me around</button><br>
+                            <button id="abandoned" onclick="togSelect('abandoned')" statement=" Abandoning them;" >Abandoning me</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption3" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitTreat" onclick="collectFeels('submitTreat', 'otherOption3');switchQ('q10y','q10y2');nextLoc('q10y2');currentLoc('q10y')" statement="The user feels the team is:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo();remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q10y','home_page');erase();eraseFeels('submitTreat')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q10y2" name="q10y2" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What do you think is the root of the problem?</h3>
+                        <div>
+                            <button id="misunderstanding_q10y2" onclick="togSelect('misunderstanding_q10y2')" statement=" A misunderstanding;">Misunderstanding</buton><br>
+                            <button id="lack of compromise_q10y2" onclick="togSelect('lack of compromise_q10y2')" statement=" Lack of compromise;" >No compromise</button><br>
+                            <button id="prejudice_q10y2" onclick="togSelect('prejudice_q10y2')" statement=" Prejudism;">Prejudism</button><br>
+                            <button id="egotism_q10y2" onclick="togSelect('egotism_q10y2')" statement=" Inflated egos;" >Inflated Egos</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption4" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitRoot" onclick="collectFeels('submitRoot', 'otherOption4');switchQ('q10y2','q10y3');nextLoc('q10y3');currentLoc('q10y2')" statement="The user believes the root of the problem is:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo();remove;"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q10y2','home_page');erase();eraseFeels('submitRoot')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q10y3" name="q10y3" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Would you like to give more details of the problem?</h3>
+                        <textarea style="height:45%" id="probDetGrp" placeholder="Please enter the details..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q10y3','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="submitProbDetGrp" onclick="save('probDetGrp', 'submitProbDetGrp');switchQ('q10y3','q12');nextLoc('q12');currentLoc('q10y3')" statement="Details of the problem: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+
+                <div id="q11" name="q11" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Could you please give details of the issue?</h3>
+                        <textarea id="probDetGrp_q11" placeholder="Please enter the details..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q11','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="submitProbDetGrp_q11" onclick="save('probDetGrp_q11', 'submitProbDetGrp_q11');switchQ('q11','q12');nextLoc('q12');currentLoc('q11')" statement="Details of issue: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+
+                <div id="q12" name="q12" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div id="options_q12" class="question">
+                        <h3>How has your problem made you feel?</h3>
+                        <button id="anxious_q12" onclick="togSelect('anxious_q12')" statement=" Anxious;">Anxious</buton><br>
+                        <button id="stressed_q12" onclick="togSelect('stressed_q12')" statement=" Stressed;" >Stressed</button><br>
+                        <button id="depressed_q12" onclick="togSelect('depressed_q12')" statement=" Depressed;">Depressed</button><br>
+                        <button id="scared_q12" onclick="togSelect('scared_q12')" statement=" Scared;" >Scared</button><br>
+                        <button id="frustrated_q12" onclick="togSelect('frustrated_q12')" statement=" Frustrated;" >Frustrated</button><br>
+                        
+                        <div id="other_option" class="otherOption" style="display:block;">
+                            <textarea id="otherOption_q12" placeholder="Other"></textarea>
+                        </div>
+                    
+                    </div>
+                    
+                        
+                    <button class="submitButton" id="submitFeel_q12" onclick="collectFeels('submitFeel_q12', 'otherOption_q12');switchQ('q12','q4');nextLoc('q4');currentLoc('q12')" statement="The user believes the root of the problem is:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo();remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q10y2','home_page');erase();eraseFeels('submitFeel_q12')"><i class="fas fa-home"></i></button>
+                    
+                </div>
+
+                <div id="q13" name="q13" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Could you please provide their name(s)?</h3>
+                        <textarea style="height:40%" id="memberName" placeholder="Please enter their name(s)..."></textarea>
+                        <button id="ratherNot_q13" onclick="switchQ('q13','q4'); currentLoc('q13'); nextLoc('q4');record('ratherNot_q13')" statement="The user does not wish to give names">I would rather not</button>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q13','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="submitMemName" onclick="save('memberName', 'submitMemName');switchQ('q13','q4');nextLoc('q4');currentLoc('q13')" statement="Name(s) of member(s): "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+                
+                <div id="q14" name="q14" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Could you please provide their names?</h3>
+                        <textarea style="height:40%" id="memberName" placeholder="Please enter their name(s)..."></textarea>
+                        <button id="ratherNot_q13" onclick="switchQ('q14','q15'); currentLoc('q13'); nextLoc('q4');record('ratherNot_q13')" statement="The user does not wish to give names">I would rather not</button>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q14','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="submitMemName" onclick="save('memberName', 'submitMemName');switchQ('q13','q15');nextLoc('q15');currentLoc('q14')" statement="Name(s) of member(s): "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+                
+                <div id="q15" name="q15" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What do you think is the root of the problem?</h3>
+                        <div>
+                            <button id="misunderstanding_q15" onclick="togSelect('misunderstanding_q15')" statement=" A misunderstanding;">Misunderstanding</buton><br>
+                            <button id="lack of compromise_q15" onclick="togSelect('lack of compromise_q15')" statement=" Lack of compromise;" >No compromise</button><br>
+                            <button id="prejudice_q15" onclick="togSelect('prejudice_q15')" statement=" Prejudism;">Prejudice</button><br>
+                            <button id="egotism_q15" onclick="togSelect('egotism_q15')" statement=" Inflated egos;" >Inflated Egos</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption_q15" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitRoot_q15" onclick="collectFeels('submitRoot_q15', 'otherOption_q15');switchQ('q15','q16');nextLoc('q16');currentLoc('q15')" statement="The user believes the root of the problem is:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo(); remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q15','home_page');erase();eraseFeels('submitRoot')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q16" name="q16" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Has the issue affected your productivty?</h3>
+                        <button id="prodAffectY" type="button" onclick="switchQ('q16', 'q16y');record('prodAffectY');currentLoc('q16');nextLoc('q16y')" statement="The user believes their productivity has been affected" name="" value="">Yes</button><br>
+                        <button id="prodAffectN" type="button" onclick="switchQ('q16', 'q17');record('prodAffectN');currentLoc('q16');nextLoc('q17')" statement="The user doesn't believe that their productivity has been affected" name="" value="">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q16','home_page');erase()"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q16y" name="q16y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>How has your productivity been affected?</h3>
+                        <div>
+                            <button id="discouraged" onclick="togSelect('discouraged')" statement=" Discouraged from working;">It's discouraging</buton><br>
+                            <button id="focus" onclick="togSelect('focus')" statement=" Distracted from work;" >I cannot focus</button><br>
+                            <button id="communicationLoss" onclick="togSelect('communicationLoss')" statement=" Cannot communicate with members;">I cannot communicate with them</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption_q16y" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitRoot_q16y" onclick="collectFeels('submitRoot_q16y', 'otherOption_q16y');switchQ('q16y','q17');nextLoc('q17');currentLoc('q16y')" statement="The user believes they have been affected in the following ways: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo();remove();"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q15','home_page');erase();eraseFeels('submitRoot')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q17" name="q17" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Has the issue affected the team's productivty?</h3>
+                        <button id="TeamprodAffectY" type="button" onclick="switchQ('q17', 'q18');record('prodAffectY');currentLoc('q17');nextLoc('q18')" statement="The user believes the team's productivity has been affected" name="" value="">Yes</button><br>
+                        <button id="TeamprodAffectN" type="button" onclick="switchQ('q17', 'q18');record('prodAffectN');currentLoc('q17');nextLoc('q18')" statement="The user doesn't believe that the team's productivity has been affected" name="" value="">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q16','home_page');erase()"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q18" name="q18" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>How do you think the issue should be resolved?</h3>
+                        <button id="asTeam" onclick="record('asTeam');switchQ('q18','q5'); currentLoc('q18'), nextLoc('q5')" statement="The issue should be sorted as a team" value="" name="">As a team</button>
+                        <button id="themselves" onclick="record('themselves');switchQ('q18','q5');currentLoc('q18'), nextLoc('q5')" statement="The issue should be sorted  out by the member's themselves" value="" name="">Among the member's themselves</button>
+                        <button id="hr_resolve" onclick="record('hr_resolve');switchQ('q18','q5');currentLoc('q18'), nextLoc('q5')" statement="The issue needs to be sorted by HR" value="" name="">By Human Resources</button>
+                        <button id="headHonch" onclick="record('headHonch');switchQ('q18','q5');currentLoc('q18'), nextLoc('q5')" statement="The issue should be sorted by the PI" value="" name="">By the Principle Investigator</button>
+                        <button id="external" onclick="record('external');switchQ('q18','q5');currentLoc('q18'), nextLoc('q5')" statement="The issue should be resolved by and external person" value="" name="">By an External Person</button>
+                    </div>
+                    
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q18','home_page');erase();"><i class="fas fa-home"></i></button>
+                
+                </div>
+                
+                <div id="q19" name="q19" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What do you think is the problem with the group</h3>
+                        <div>
+                            <button id="behaviour" onclick="togSelect('behaviour')" statement=" Inappropriate behaviour;">Inappropriate behaviour</buton><br>
+                            <button id="productivity_q19" onclick="togSelect('productivity_q19')" statement=" Lack of productivity;" >Lack of productivity</button><br>
+                            <button id="concentration" onclick="togSelect('concentration')" statement=" Lack of concentration;">Lack of concentration</button><br>
+                            <button id="communication_q19" onclick="togSelect('communication_q19')" statement=" Lack of communication;">Lack of communication</button><br>
+                            <button id="motivation" onclick="togSelect('motivation')" statement=" Lack of Motivation;">Lack of Motivation</button><br>
+                            <div id="" class="otherOption" style="display:block;">
+                                <textarea style="height:35px;" id="otherOption_q19" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitWrong_q19" onclick="collectFeels('submitWrong_q19', 'otherOption_q19');switchQ('q19','q20');nextLoc('q20');currentLoc('q19')" statement="The user has raised the following issue with the group: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo(); remove();"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q19','home_page');erase();eraseFeels('submitRoot')"><i class="fas fa-home"></i></button>
+                </div>
+
+                <div id="q20" name="q20" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                
+                    <div class="question">
+                        <h3>Please give more details of the issue:</h3>
+                        <textarea id="probDetGrpGen" placeholder="Enter details..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q20','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="subproDetGrpGen" onclick="save('probDetGrpGen','subproDetGrpGen');switchQ('q20','q21');nextLoc('q21');currentLoc('q20')" statement="Details of problem: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+
+                </div>
+
+                <div id="q21" name="q21" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What do you think is the root of the problem?</h3>
+                        <div>
+                            <button id="lackCommunication_q21" onclick="togSelect('lackCommunication_q21')" statement=" Lack fo communication;">Lack of communication</buton><br>
+                            <button id="lack of compromise_q21" onclick="togSelect('lack of compromise_q21')" statement=" Lack of compromise;" >Lack of compromise</button><br>
+                            <button id="prejudice_q21" onclick="togSelect('prejudice_q21')" statement=" Prejudism;">Prejudism</button><br>
+                            <button id="egotism_q21" onclick="togSelect('egotism_q21')" statement=" Inflated egos;" >Inflated Egos</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption_q21" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitRoot_q21" onclick="collectFeels('submitRoot_q21', 'otherOption_q21');switchQ('q21','q18');nextLoc('q18');currentLoc('q21')" statement="The user believes the root of the problem is:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo(); remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q21','home_page');erase();eraseFeels('submitRoot_q21')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+
+                <div id="q22" name="q22" title="" style="display:none;">
+
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+
+                    <div class="question">
+                        <h3>Is something about your work bothering you?</h3>
+                        <button id="workBothY" type="button" onclick="switchQ('q22', 'q22y');record('workBothY');currentLoc('q22');nextLoc('q22y');" statement="The user is troubled by their work" value="Yes">Yes</button><br>
+                        <button id="workBothN" type="button" onclick="switchQ('q22', 'q23');record('workBothN');currentLoc('q22');nextLoc('q23');" statement="The user is not troubled by their work" value="No">No</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q22','home_page');erase()"><i class="fas fa-home"></i></button>
+
+                </div>
+
+                <div id="q22y" name="q22y" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What is bothering you?</h3>
+                        <div>
+                            <button id="overwhelmed" onclick="togSelect('overwhelmed')" statement=" They feel overwhelmed;">I feel overwhlemed</buton><br>
+                            <button id="lossFocus" onclick="togSelect('lossFocus')" statement=" They've lost focus;" >I cannot focus</button><br>
+                            <button id="understanding" onclick="togSelect('understanding')" statement=" They don't understand their work;">I don't understand my work</button><br>
+                            <button id="communicate" onclick="togSelect('communicate')" statement=" They cannot communicate properly;" >I cannot communicate with others</button><br>
+                            <button id="dislikeWork" onclick="togSelect('dislikeWork')" statement=" They do not like their work;" >I don't like my work</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption_q22y" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitWorkBoth_q22y" onclick="collectFeels('submitWorkBoth_q22y', 'otherOption_q22y');switchQ('q22y','q23');nextLoc('q23');currentLoc('q22y')" statement="The user has the following problems regarding their work:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo(); remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q22y','home_page');erase();eraseFeels('submitWorkBoth_q22y')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q23" name="q23" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Please give details of the issue(s) related to your assignment?</h3>
+                        <textarea style="height:45%" id="assIssueDet" placeholder="Enter your issue..."></textarea>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q23','home_page');erase()"><i class="fas fa-home"></i></button>
+                    <button class="submitButton" id="subAssIssueDet" onclick="save('assIssueDet','subAssIssueDet');switchQ('q23','q24');nextLoc('q24');currentLoc('q23')" statement="Details of issue with assignemnt: "> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    
+                </div>
+
+                <div id="q24" name="q24" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>How has this affected your work?</h3>
+                        <div>
+                            <button id="lackProd" onclick="togSelect('lackProd')" statement=" Loss of productivty;">I've lost productivity</buton><br>
+                            <button id="deadlines" onclick="togSelect('deadlines')" statement=" Cannot meet deadlines;" >I cannot meet deadlines</button><br>
+                            <button id="think" onclick="togSelect('think')" statement=" ;">I cannot think</button><br>
+                            <button id="poorWork" onclick="togSelect('poorWork')" statement=" Work is of poor quality;" >My work is of poor quality</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption_q24" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitWorkAff_q24" onclick="collectFeels('submitWorkAff_q24', 'otherOption_q24');switchQ('q24','q25');nextLoc('q25');currentLoc('q24')" statement="The user's work has been affected in the following ways:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo(); remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q24','home_page');erase();"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+                <div id="q25" name="q25" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>What do you think is the root of the problem?</h3>
+                        <div>
+                            <button id="motivation_q25" onclick="togSelect('motivation_q25')" statement=" Lack of motivation;">I've lost motivation</buton><br>
+                            <button id="interest" onclick="togSelect('interest')" statement=" Lack of interest;" >I've lost interest</button><br>
+                            <button id="dislike" onclick="togSelect('dislike')" statement=" Dislike for their work;">I dislike my work</button><br>
+                            <button id="rootIsTeam" onclick="togSelect('rootIsTeam')" statement=" other team mates;" >The team</button><br>
+                            <div id="other_option" class="otherOption" style="display:block;">
+                                <textarea id="otherOption_q25" placeholder="Other"></textarea>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <button class="submitButton" id="submitGrpGenRoot_q25" onclick="collectFeels('submitGrpGenRoot_q25', 'otherOption_q25');switchQ('q25','q5');nextLoc('q5');currentLoc('q25')" statement="The user believes the root of the problem is:"> <i class="far fa-arrow-alt-circle-right"></i></button>
+                    <button class="backButton" type="button" onclick="goBack(); undo(); remove()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+                    <button class="homeButton" id="Home" onclick="switchQ('q25','home_page');erase();eraseFeels('submitRoot')"><i class="fas fa-home"></i></button>
+                
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <!---->
+                <div id="q" name="q" title="" style="display:none;">
+                    <div class="topBanner">
+                        <p>Let's Talk About This</p>
+                    </div>
+                    
+                    <div class="question">
+                        <h3>Question</h3>
+                        <button type="button" onclick="switchQ('q', 'q' )" name="" value="">option 1</button><br>
+                        <button type="button" onclick="switchQ('q', 'q' )" name="" value="">option 2</button><br>
+                        <button type="button" onclick="switchQ('q', 'q' )" name="" value="">option 3</button><br>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="goBack(); undo()"><i class="far fa-arrow-alt-circle-left"></i></button><br>
+
+                </div>
+            
+                
+
+                <!-- Question 3a -->    
+
+                <div id="q3a" name="q3a" title="Question 3" style="display:none;">
+
+                    <div class="question">
+                        <h2>~ Question 3 ~</h2>
+                        <h3>Does this affect your work performance?</h3>
+                        <button type="button" onclick="switchQ('q3a', 'q4a' )" name="WORK_PERFORMANCE?" value="Yes"> Yes</button><br>
+                        <button type="button" onclick="switchQ('q3a', 'q4b' )" name="WORK_PERFORMANCE?" value="No"> No</button>
+                    </div>
+                    
+                    <button class="backButton" type="button" onclick="switchQ('q3a', 'q2b')"><i class="fas fa-reply"></i> Back</button><br>
+
+                </div>    
+
+                
+
+                <!-- Question 3b -->
+
+                <div id="q3b" name="q3b" title="Question 3" style="display:none;">
+
+                    <div class="question">
+                        <h2>~ Question 3 ~</h2>
+                        <h3>Is it about the dynamics of the team ?</h3>
+                        <button type="button" onclick="switchQ('q3b', 'q4c' )" name="TEAM_DYNAMICS?" value="Yes"> Yes</button><br>
+                        <button type="button" onclick="switchQ('q3b', 'q4d' )" name="TEAM_DYNAMICS?" value="No"> No</button>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="switchQ('q3b', 'q2b')"><i class="fas fa-reply"></i> Back</button><br>
+
+                </div>
+
+
+
+                <!-- Question 3c -->
+
+                <div id="q3c" name="q3c" title="Question 3" style="display:none;"> 
+
+                    <div class="question">
+                        <h2>~ Question 3 ~</h2>
+                        <h3>What's the problem?</h3>
+                        <select name="TECHNICAL_PROBLEM_TYPE">
+                            <option value="" selected disabled hidden>Select your problem</option>
+                            <option value="I do not understand something">I do not understand something</option>
+                            <option value="I am not able to finish a task">I am not able to finish a task</option>
+                            <option value="I have incoherent results">I have incoherent results</option>
+                        </select>
+                        <h3>Briefly describe your issue</h3>
+                        <textarea type="text" name="TECHNICAL_PROBLEM_DESCRIPTION" placeholder="Your issue..."></textarea><br>
+                    </div>
+
+                    <button class="backButton" type"button" onclick="switchQ('q3c', 'q2b')"><i class="fas fa-reply"></i> Back</button>
+
+                    <button class="submitButton" type"button" onclick="switchQ('q3c', 'submitButton')">Submit <i class="fas fa-share"></i></button>
+
+                </div>
+
+                
+
+                <!-- Question 4a -->
+
+                <div id="q4a" name="q4a" title="Question 4" style="display:none;">
+
+                    <div class="question">
+                        <h2>~ Question 4 ~</h2>
+                        <h3>How is you work performance affected?</h3>
+                        <select name="PERSONAL_PROBLEM_TYPE">
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Difficulty concentrating">I cannot concentrate</option>
+                            <option value="Lack of ideas">I have no new ideas</option>
+                            <option value="Difficulty problem solving">I cannot solve problems</option>
+                            <option value="Doesn't feel they contribut to the team">I cannot contribute to the team</option>
+                            <option value="difficulty with communnicating">difficulty with communicating with team</option>
+                        </select>
+                        <br>
+                        <h3>How can your team help?</h3>
+                        <textarea type="text" name="HOW_CAN_OTHERS_HELP?"></textarea>
+                    </div> 
+                    <button class="backButton" type"button" onclick="switchQ('q4a', 'q3a')"><i class="fas fa-reply"></i> Back</button>
+                    <button class= "submitButton "type"button" onclick="switchQ('q4a', 'submitButton')">Submit <i class="fas fa-share"></i></button> 
+                </div>
+
+                
+
+                <!-- Question 4b -->
+
+                <div id="q4b" name="q4b" title="Question 4" style="display:none;">
+                    <div class="question">
+                        <h2>~ Question 4 ~</h2>
+                        <h3>Does it affect your mental health ?</h3>
+                        <button type="button" onclick="switchQ('q4b','q5c')" name="MENTAL_HEALTH?" value="Yes">Yes</button>
+                        <button type="button" onclick="switchQ('q4b', 'q5a')" name="MENTAL_HEALTH?" value="No">No</button>
+                    </div>
+                    <button class="backButton" type="button" onclick="switchQ('q4b', 'q3a')"><i class="fas fa-reply"></i> Back</button>
+                </div>
+
+                
+
+                <!-- Question 4c -->
+
+                <div id="q4c" name="q4c" title="Question 4" style="display:none;">
+                    <div class="question">
+                        <h2>~ Question 4 ~</h2>
+                        <h3>In which category does this problem fall into ?</h3>
+                        <select name="TEAM_DYN_PROBLEM_TYPE">
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Lack of communication">Lack of communication</option>
+                            <option value="Failure to listen">Failure to listen</option>
+                            <option value="Attitude and ego">Attitude and ego</option>
+                            <option value="Authority/Hierarchy problems">Authority/Hierarchy problems</option>
+                            <option value="Different background in knowledge">Lack of understanding</option>
+                            <option value="Personal/Emotional issues among team members">Personal issues with team members</option>
+                        </select>
+                        <h3>How would you like this problem to be resolved?</h3>
+                        <textarea placeholder="This could be resolved by..." type="text" name="WHAT_TO_SOLVE_PROBLEM?"></textarea>
+                    </div>
+                    <button class="backButton" type="button" onclick="switchQ('q4c', 'q3b')"><i class="fas fa-reply"></i> Back</button>
+                    <button class="submitButton" type="button" onclick="switchQ('q4c', 'submitButton')">Submit <i class="fas fa-share"></i></button>
+
+                </div>
+
+                
+
+                <!-- Question 4d -->
+
+                <div id="q4d" name="q4d" title="Question 4" style="display:none;">
+                    <div class="question">
+                        <h2>~ Question 4 ~</h2>
+                        <h3>Is it about one person in particular ?</h3>
+                        <button type="button" onclick="switchQ('q4d', 'q5b' )" name="IS_PARTICULAR_PERSON?" value="Yes">Yes</button>
+                        <button type="button" onclick="switchQ('q4d', 'q5d')" name="IS_PARTICULAR_PERSON?" value="No">No</button>
+                    </div>
+                    <button class="backButton" type="button" onclick="switchQ('q4d', 'q3b')"><i class="fas fa-reply"></i> Back</button>
+
+                </div>
+
+                
+
+                <!-- Question 5a -->
+
+                <div id="q5a" name="q5a" title="Question 5" style="display:none;">
+                    <div class="question">
+                        <h2>~ Question 5 ~</h2>
+                        <h3>Does it affect your health in general?</h3>
+                        <button type="button" onclick="switchQ('q5a', 'q6a')" name="GENERAL_HEALTH?" value="Yes">Yes</button> 
+                        <button type="button" onclick="switchQ('q5a', 'q6b')" name="GENERAL_HEALTH?" value="No">No</button>
+                    </div>
+
+                    <button class="backButton" type="button" onclick="switchQ('q5a','q4b')"><i class="fas fa-reply"></i> Back</button>   
+
+                </div>
+
+                <!-- Question 5b -->
+
+                <div id="q5b" name="q5b" title="Question 5" style="display:none;">
+
+                    <div class="question">
+                        <h2>~ Question 5 ~</h2>
+                        <h3>What's the name of this person ?</h3>
+                        <input type="text" name="PROBLEM_WITH">
+                        <br>
+                        <h3 >In which category does this problem fall into ?</h3>
+                        <select name="PROBLEM_WITH_OTHER_TYPE">
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Lack of communication">Lack of communication</option>
+                            <option value="Failure to listen">Failure to listen</option>
+                            <option value="Attitude and ego">Attitude and ego</option>
+                            <option value="Authority/Hierarchy problems">Authority/Hierarchy problems</option>
+                            <option value="Different background in knowledge">Different backgrounds in knowledge</option>
+                        </select>
+                        <br>
+                        <h3>Why don't you tell this to him/her ?</h3>
+                        <select name="WHY_DONT_TELL">
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option name="He/She does not listen">He/She does not listen</option>
+                            <option name="He/She she would not understand">He/She she would not understand</option>
+                            <option name="I am shy">I am shy</option>
+                            <option name="I am scared of his/her reaction">I am scared of his/her reaction</option>	
+                        </select>
+                    </div>
+                    
+                    <button class="backButton" type="button" onclick="switchQ('q5b', 'q4d')"><i class="fas fa-reply"></i> Back</button>
+                    <button class="submitButton" type="button" onclick="switchQ('q5b', 'submitButton')">Submit <i class="fas fa-share"></i></button>
+
+                </div>
+
+                <!-- Question 5c -->
+
+                <div id="q5c" name="q5c" title="Question 5" style="display:none;">
+
+                    <div class="question">
+                        <h2>~ Question 5 ~</h2>
+                        <h3>How does this make you feel?</h3>
+                        <select>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Anxious">Anxious</option>
+                            <option value="Tired">Tired</option>
+                            <option value="Depressed">Depressed</option>
+                            <option value="Self-conscious">Self-conscious</option>
+                            <option value="Lack confidence">Lack confidence</option>
+                            <option value="Hurt">Hurt</option>
+                            <option value="Scared">Scared</option>
+                        </select>
+                        <h3>Has this affected your physically?</h3>
+                        <button type="button" onclick="switchQ('q5c', 'q6a')" name="Physical Health" value="Yes">Yes</button><br>
+                        <button type="button" onclick="switchQ('q5c', 'q6b')" name="Physical Health?" value="No">No</button> <br>
+                    </div>
+
+                    <button class="backButton" type"button" onclick="switchQ('q5c', 'q4b')"><i class="fas fa-reply"></i> Back</button>
+                </div>
+
+                <div id="q5d" name="q5d" title="Question 3" style="display:none;">
+
+                    <div class="question">
+                        <h2>~ Question 5 ~</h2>
+                        <h3>Does this affect your work performance?</h3>
+                        <button type="button" onclick="switchQ('q5d', 'q4a' )" name="WORK_PERFORMANCE?" value="Yes"> Yes</button><br>
+                        <button type="button" onclick="switchQ('q5d', 'q6c' )" name="WORK_PERFORMANCE?" value="No"> No</button>
+                    </div>
+                    
+                    <button class="backButton" type="button" onclick="switchQ('q5d', 'q4d')"><i class="fas fa-reply"></i> Back</button><br>
+
+                </div>    
+
+
+                <!-- Question 6-->
+
+                <div id="q6a" name="q6a" title="Question 6" style="display:none;">
+                    <div class="question">
+                        <h4 style="margin-top:30px;" >It would be best for you to see a general practitioner or a counsellor</h4> 
+                        <h4>Please consult the website bellow for more information on how you can do this</h4>
+                        <a href="https://www.nhs.uk/using-the-nhs/nhs-services/gps/gp-appointments-and-bookings/" target="_blank">NHS appointment</a>
+                        <h4>All the best!</h4> 
+                        
+                        <h3>Want to say something to the team?</h3>
+                        <textarea type="text" name="message to team" placeholder="Hi team..."></textarea><br>
+                    </div>
+                    <button class="backButton" type="button" onclick="switchQ('q6a', 'q5c')"><i class="fas fa-reply"></i> Back</button>
+                    <button class= "submitButton" type="button" onclick="switchQ('q6a', 'submitButton')">Submit <i class="fas fa-share"></i></button> 
+                
+                </div>
+
+                <div id="q6b" name="q6b" title="Question 6" style="display:none;">
+                    <div class="question">
+                        <h4 style="margin-top:30px;">At least your physical health is doing okay, but it may be best to speak to a counsellor</h4> 
+                        <h4>Please do consult the website bellow for more information on how you could get help</h4>
+                        <a href="https://www.nhs.uk/using-the-nhs/nhs-services/gps/gp-appointments-and-bookings/" target="_blank">Counselling</a>
+                        <h4>All the best!</h4> 
+                        
+                        <h3>Want to say something to the team?</h3>
+                        <textarea type="text" name="message to team" placeholder="Hi team..."></textarea><br>
+                    </div>
+                    <button class="backButton" type"button" onclick="switchQ('q6b', 'q5c')"><i class="fas fa-reply"></i> Back</button>
+                    <button class= "submitButton "type"button" onclick="switchQ('q6b', 'submitButton')">Submit <i class="fas fa-share"></i></button> 
+                
+                </div>
+    
+                <div id="q6c" name="q6c" title="Question 6" style="display:none;">
+                    <div class="question">
+                        <h2>~ Question 6 ~</h2>
+                        <h3>Does it affect your mental health ?</h3>
+                        <button type="button" onclick="switchQ('q6c','q5c')" name="MENTAL_HEALTH?" value="Yes">Yes</button>
+                        <button type="button" onclick="switchQ('q6c', 'q5a')" name="MENTAL_HEALTH?" value="No">No</button>
+                    </div>
+                    <button class="backButton" type="button" onclick="switchQ('q4b', 'q3a')"><i class="fas fa-reply"></i> Back</button>
+                </div>
+
+
+
+                <!-- ??????? -->
+
+                <div id="IsProblem?" name="IsProblem?" title="Is there a problem?" style="display:none;">
+
+                    <h3>Thanks for the information ! First, ask yourself: is there really a problem here? ...
+
+                        Then try to accept this and ask for help. 
+
+                        Sometimes it is useful to break the probem down in smaller pieces. DO not forget to reflect on the opportunities and/or lessons that this problem enables you to experience.
+
+                    </h3>        
+
+                </div> 
+
+                
+
+                <!-- ??????? -->
+
+                <div id="q" name="q" title="Question " style="display:none;">
+
+                    <h3>Thanks for the information ! Talk to someone that understands the problem. If you don't have anyone to talk to, visit this website:...
+
+                    </h3>        
+
+                </div>
+
+                
+
+                <!-- ??????? -->
+
+                <div id="q" name="q" title="Question " style="display:none;">
+
+                    <h3>Thanks for the information ! 
+
+                    </h3>        
+
+                </div> 
+
+                
+
+                <!-- ??????? -->
+
+                <div id="q" name="q" title="Question " style="display:none;">
+
+                    <h3>Thanks for sharing this information with the rest of the team!
+
+                    </h3>       
+
+                </div> 
+
+                
+
+                <!-- ??????? -->
+
+                <div id="q" name="" title="Question " style="display:none;">
+
+                    <h3>Talk to someone in the team ASAP and/or visit this website: ...
+
+                    </h3>        
+
+                </div> 
+
+                <!-- SUBMIT BUTTON -->
+
+                <!-- Show only after last question -->
+                
+                <div id="submitButton" name="submitButton" title="Submit Button" style="display:none;">
+                    <div class="question">
+                        <h3>Thank you for completing the form!</h3>
+                        <h4>Click the button below to submit.</h4>        
+                    </div>
+
+                    <button class="home" type="button" onclick="switchQ('submitButton', 'nameReq')">Home</button>
+                    <button class="submitButton" type="submit" form="form1" value="Submit">Submit <i class="fas fa-share"></i></button>
+    
+
+                </div>
+
+
+            </div>
+
+            <div class="bottomMenu">
+                <i style="transform:rotate(180deg)" class="fas fa-chevron-right"></i>
+                <i class="far fa-circle"></i>
+                <i class="far fa-square"></i>
+            </div>
+            
+
+            <!--div id="submitButton" name="submitButton" title="Submit Button" style="display:none;">
+
+                <h3>Thank you for completing the form!</h3>
+
+                <h4>Click the button below to submit.</h4>
+
+                <button type="submit" form="form1" value="Submit">Submit</button>
+
+            </div-->
+
+
+        
+
+
+        
+        </div>
+        
+        <div class="email"></div>
+
+            
+
+    </body>
+
+
+
+</html>
+
+
+
+
+
